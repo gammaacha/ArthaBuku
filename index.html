@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ArthaBuku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f3f6f9;--card:#fff;--ink:#14213d;--mute:#586a80;--rule:#cddbe8;--margin:#d9485f;--in:#0b7a63;--out:#b3261e;--accfg:#fff;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0f1722;--card:#17212f;--ink:#e8eef6;--mute:#97a7bb;--rule:#2b3a4e;--margin:#ef6b80;--in:#4cc9a6;--out:#ff8a80;--accfg:#0f1722;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0f1722;--card:#17212f;--ink:#e8eef6;--mute:#97a7bb;--rule:#2b3a4e;--margin:#ef6b80;--in:#4cc9a6;--out:#ff8a80;--accfg:#0f1722;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.55 Figtree,system-ui,sans-serif}
+header,main,footer{max-width:820px;margin:0 auto;padding-left:18px;padding-right:18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:18px}
+.logo{font:700 1.3rem "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.01em}
+nav{display:flex;gap:2px}
+nav button{font:600 .95rem Figtree,system-ui,sans-serif;background:none;border:0;color:var(--mute);padding:8px 12px;cursor:pointer;border-bottom:3px solid transparent}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom:3px double var(--margin)}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.02em;line-height:1.1;margin:0}
+h1{font-size:clamp(1.9rem,6vw,2.9rem);margin:28px 0 10px}
+h2{font-size:1.35rem;margin:26px 0 10px}
+.lead{color:var(--mute);margin:0 0 18px;max-width:60ch}
+textarea,input,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:9px 10px;width:100%}
+textarea{font-size:1.1rem;min-height:7.5rem;border-left:3px solid var(--margin);resize:vertical}
+:focus-visible{outline:2px solid var(--margin);outline-offset:2px}
+.btn,.ghost,.chip{font:600 .95rem Figtree,system-ui,sans-serif;border-radius:6px;cursor:pointer}
+.btn{background:var(--ink);color:var(--accfg);border:1px solid var(--ink);padding:10px 18px}
+.btn:disabled{opacity:.5;cursor:wait}
+.ghost{background:none;color:var(--ink);border:1px solid var(--rule);padding:9px 14px}
+.ghost[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 -2px var(--margin)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.chip{background:none;color:var(--mute);border:1px dashed var(--rule);padding:6px 10px;text-align:left;font-weight:500;font-size:.9rem}
+.chip:hover{color:var(--ink);border-color:var(--ink)}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.status{min-height:1.5em;margin:10px 0 0;color:var(--mute)}
+.rv{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;margin-bottom:8px;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--margin);border-radius:4px;align-items:end}
+.rv .f:nth-child(2){grid-column:1/-1}
+.f span{display:block;font-size:.8rem;color:var(--mute);margin-bottom:2px}
+@media (min-width:700px){.rv{grid-template-columns:100px 1fr 140px 150px 130px auto}.rv .f:nth-child(2){grid-column:auto}}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.stat{flex:1 1 140px;padding:10px 14px;background:var(--card);border:1px solid var(--rule);border-radius:4px}
+.stat span{display:block;font-size:.85rem;color:var(--mute)}
+.stat b{font:700 1.4rem "Bricolage Grotesque",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.in{color:var(--in)}.out{color:var(--out)}
+.sheet{overflow-x:auto;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--margin);border-radius:4px}
+table{width:100%;border-collapse:collapse;min-width:600px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:.85rem;color:var(--mute);padding:9px 10px;border-bottom:3px double var(--ink);font-weight:600}
+td{padding:8px 10px;border-bottom:1px solid var(--rule)}
+.num{text-align:right;white-space:nowrap}
+td button{background:none;border:0;color:var(--mute);cursor:pointer;font:inherit;text-decoration:underline;padding:2px 4px}
+.empty{padding:22px;color:var(--mute);border:1px dashed var(--rule);border-radius:4px}
+.bar{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;margin:6px 0}
+.bar i{display:block;height:10px;background:var(--out);border-radius:2px}
+.bar em{font-style:normal;font-variant-numeric:tabular-nums}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ctl input{width:auto}
+footer{color:var(--mute);font-size:.85rem;padding-top:28px;padding-bottom:30px;max-width:64ch}
+</style>
+</head>
+<body>
+<header class="top"><span class="logo">ArthaBuku</span>
+<nav role="tablist"><button id="t-catat" role="tab">Catat</button><button id="t-kas" role="tab">Buku kas</button><button id="t-ringkas" role="tab">Ringkasan</button></nav></header>
+<main>
+<section id="v-catat">
+<h1>Catat uang dengan kalimat biasa.</h1>
+<p class="lead">Ketik seperti bercerita. AI mengubahnya menjadi transaksi yang bisa Anda periksa dan koreksi sebelum disimpan.</p>
+<label for="teks" class="lead" style="display:block;margin-bottom:6px">Apa yang terjadi dengan uang Anda?</label>
+<textarea id="teks" maxlength="1000"></textarea>
+<div class="chips" id="chips" aria-label="Contoh kalimat"></div>
+<div class="act"><button class="btn" id="proses">Proses dengan AI</button><button class="ghost" id="manual" type="button">Isi manual tanpa AI</button></div>
+<p class="status" id="status" role="status" aria-live="polite"></p>
+<div id="review"></div>
+</section>
+<section id="v-kas" hidden>
+<h1>Buku kas</h1>
+<p class="status" id="kasnote" role="status"></p>
+<div class="stats" id="kasTot"></div>
+<div class="sheet" id="kasTbl"><table><thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th class="num">Masuk</th><th class="num">Keluar</th><th class="num">Saldo</th><th></th></tr></thead><tbody id="kasBody"></tbody></table></div>
+<div class="empty" id="kasEmpty" hidden>Buku kas masih kosong. Buka tab Catat, tulis satu kalimat tentang uang masuk atau keluar, lalu simpan hasilnya.</div>
+</section>
+<section id="v-ringkas" hidden>
+<h1>Ringkasan</h1>
+<div class="ctl"><button class="ghost" id="p-harian" aria-pressed="true">Harian</button><button class="ghost" id="p-mingguan" aria-pressed="false">Mingguan</button><label for="sdate" style="color:var(--mute)">Sampai tanggal</label><input type="date" id="sdate"></div>
+<p class="lead" id="sper" style="margin-top:12px"></p>
+<div class="stats" id="sTot"></div>
+<div id="sBody"></div>
+</section>
+</main>
+<footer>Data tersimpan di browser ini saja. Yang dikirim ke AI hanya kalimat yang Anda tulis, untuk diubah menjadi transaksi. Ringkasan dihitung langsung dari buku kas, tanpa AI.</footer>
+<script>
+const $=s=>document.querySelector(s),KEY="arthabuku:v1",CATS=["Makanan","Transportasi","Belanja","Tagihan","Gaji","Usaha","Lainnya"],DAYS=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const EX=["tadi pagi beli nasi goreng 25 ribu sama es teh 5rb, terus isi bensin 50k","kemarin dapat transfer dari Budi 200rb, bayar listrik 350.000","gajian 3 juta hari ini, beli beras 65 ribu"];
+let data=[],draft=[],per="harian",sample=null;
+try{const r=JSON.parse(localStorage.getItem(KEY)||"[]");if(Array.isArray(r))data=r}catch(e){}
+const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){return false}};
+const z=n=>String(n).padStart(2,"0"),iso=d=>d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate()),today=()=>iso(new Date());
+const rp=n=>(n<0?"−":"")+"Rp"+Math.abs(Math.round(n)).toLocaleString("id-ID");
+const fd=(t,o)=>new Date(t+"T00:00:00").toLocaleDateString("id-ID",o||{day:"numeric",month:"short"});
+function el(t,p,...k){const e=document.createElement(t);for(const a in p||{}){const v=p[a];if(a==="class")e.className=v;else if(a==="value")e.value=v;else if(a.startsWith("on"))e[a]=v;else e.setAttribute(a,v)}k.flat().filter(c=>c!=null&&c!==false).forEach(c=>e.append(c));return e}
+const fld=(l,i)=>el("label",{class:"f"},el("span",null,l),i),stat=(l,v,c)=>el("div",{class:"stat"},el("span",null,l),el("b",{class:c||""},v)),setStatus=t=>{$("#status").textContent=t};
+function show(v){["catat","kas","ringkas"].forEach(x=>{$("#v-"+x).hidden=x!==v;$("#t-"+x).setAttribute("aria-selected",String(x===v))});if(v==="kas")renderKas();if(v==="ringkas")renderSum()}
+["catat","kas","ringkas"].forEach(v=>$("#t-"+v).onclick=()=>show(v));
+
+const ERR={bad_input:"Teks kosong atau lebih dari 1000 karakter.",not_granted:"Izin memakai Claude belum diberikan. Izinkan saat diminta, lalu coba lagi.",rate_limited:"Terlalu banyak permintaan atau batas pemakaian tercapai. Tunggu sebentar, lalu coba lagi.",invalid_json:"AI membalas dengan format yang tidak terbaca. Tekan Proses lagi atau perjelas kalimatnya.",session_expired:"Sesi berakhir. Masuk ulang ke claude.ai lalu coba lagi.",refused:"AI menolak memproses teks ini. Ubah kalimatnya.",empty_completion:"AI tidak memberi jawaban. Tulis transaksi lebih jelas lalu coba lagi."};
+function clean(r){if(!Array.isArray(r))r=r&&Array.isArray(r.transaksi)?r.transaksi:[];return r.slice(0,20).map(x=>{const j=Math.round(Number(x&&x.jumlah));if(!(j>0)||j>1e12)return null;const okd=/^\d{4}-\d{2}-\d{2}$/.test(x.tanggal)&&!isNaN(Date.parse(x.tanggal));return{tanggal:okd?x.tanggal:today(),keterangan:String(x.keterangan||"Tanpa keterangan").slice(0,80),kategori:CATS.includes(x.kategori)?x.kategori:"Lainnya",jenis:x.jenis==="masuk"?"masuk":"keluar",jumlah:j}}).filter(Boolean)}
+
+EX.forEach(t=>$("#chips").append(el("button",{class:"chip",type:"button",onclick:()=>{$("#teks").value=t;$("#teks").focus()}},"“"+t+"”")));
+$("#proses").onclick=async()=>{
+const t=$("#teks").value.trim(),b=$("#proses");
+if(!t){setStatus("Tulis dulu transaksinya, misalnya “beli bensin 50rb”.");return}
+b.disabled=true;$("#review").replaceChildren();setStatus("AI sedang membaca kalimat Anda…");
+try{
+const res=await fetch("/api/parse",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({teks:t})});
+const j=await res.json().catch(()=>({}));if(!res.ok)throw{code:j.error};
+const rows=clean(j);
+if(!rows.length){setStatus("Tidak ada transaksi dengan nominal jelas. Sebut barang dan jumlahnya, misalnya “makan siang 25 ribu”.");return}
+draft=rows;setStatus("Periksa hasilnya, ubah bila perlu, lalu simpan.");renderReview()
+}catch(e){setStatus(ERR[e&&e.code]||"Gagal menghubungi AI. Kalimat Anda masih ada di kotak; coba lagi.")}
+finally{b.disabled=false}};
+
+$("#manual").onclick=()=>{draft.push({tanggal:today(),keterangan:"",kategori:"Lainnya",jenis:"keluar",jumlah:""});setStatus("Isi barisnya, lalu simpan.");renderReview()};
+function renderReview(){const box=$("#review");box.replaceChildren();if(!draft.length)return;
+const set=(i,k,v)=>{draft[i][k]=k==="jumlah"?Number(v):v};
+box.append(el("h2",null,"Periksa sebelum disimpan"));
+draft.forEach((d,i)=>{
+const jn=el("select",{onchange:e=>set(i,"jenis",e.target.value)},el("option",{value:"keluar"},"Keluar"),el("option",{value:"masuk"},"Masuk"));jn.value=d.jenis;
+const kt=el("select",{onchange:e=>set(i,"kategori",e.target.value)},CATS.map(c=>el("option",{value:c},c)));kt.value=d.kategori;
+box.append(el("div",{class:"rv"},fld("Jenis",jn),
+fld("Keterangan",el("input",{type:"text",maxlength:80,value:d.keterangan,oninput:e=>set(i,"keterangan",e.target.value)})),
+fld("Jumlah (Rp)",el("input",{type:"number",min:1,step:1,value:d.jumlah,oninput:e=>set(i,"jumlah",e.target.value)})),
+fld("Tanggal",el("input",{type:"date",value:d.tanggal,oninput:e=>set(i,"tanggal",e.target.value)})),
+fld("Kategori",kt),
+el("button",{class:"ghost",type:"button",onclick:()=>{draft.splice(i,1);renderReview();if(!draft.length)setStatus("Semua baris dihapus.")}},"Hapus")))});
+box.append(el("div",{class:"act"},el("button",{class:"btn",onclick:simpan},"Simpan ke buku kas"),el("button",{class:"ghost",onclick:()=>{draft=[];renderReview();setStatus("")}},"Batalkan")))}
+function simpan(){
+for(const d of draft){if(!(d.jumlah>0)){setStatus("Jumlah harus lebih dari 0.");return}if(!/^\d{4}-\d{2}-\d{2}$/.test(d.tanggal)){setStatus("Isi tanggal yang valid.");return}}
+draft.forEach(d=>data.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),tanggal:d.tanggal,keterangan:(d.keterangan||"").trim()||"Tanpa keterangan",kategori:d.kategori,jenis:d.jenis,jumlah:Math.round(d.jumlah)}));
+const ok=persist(),n=draft.length;draft=[];$("#teks").value="";$("#review").replaceChildren();setStatus("");
+show("kas");$("#kasnote").textContent=n+" transaksi disimpan."+(ok?"":" Penyimpanan browser diblokir, jadi data hilang saat halaman ditutup.")}
+
+function renderKas(){
+const rows=data.map((d,i)=>({d,i})).sort((a,b)=>a.d.tanggal<b.d.tanggal?-1:a.d.tanggal>b.d.tanggal?1:a.i-b.i).map(x=>x.d);
+let s=0,mi=0,ke=0;const w=rows.map(d=>{if(d.jenis==="masuk"){s+=d.jumlah;mi+=d.jumlah}else{s-=d.jumlah;ke+=d.jumlah}return{d,s}}).reverse();
+$("#kasTot").replaceChildren(stat("Saldo",rp(s),s<0?"out":""),stat("Total masuk",rp(mi),"in"),stat("Total keluar",rp(ke),"out"));
+$("#kasTbl").hidden=!w.length;$("#kasEmpty").hidden=!!w.length;const tb=$("#kasBody");tb.replaceChildren();
+w.forEach(({d,s})=>tb.append(el("tr",null,el("td",null,fd(d.tanggal)),el("td",null,d.keterangan),el("td",null,d.kategori),
+el("td",{class:"num in"},d.jenis==="masuk"?rp(d.jumlah):""),el("td",{class:"num out"},d.jenis==="keluar"?rp(d.jumlah):""),el("td",{class:"num"},rp(s)),
+el("td",null,el("button",{type:"button",onclick:()=>{data.splice(data.indexOf(d),1);persist();renderKas()}},"Hapus")))))}
+
+function renderSum(){
+const day=$("#sdate").value||today();let from=day;
+if(per==="mingguan"){const d=new Date(day+"T00:00:00");d.setDate(d.getDate()-6);from=iso(d)}
+const rows=data.filter(d=>d.tanggal>=from&&d.tanggal<=day),sum=(a,j)=>a.filter(d=>d.jenis===j).reduce((x,d)=>x+d.jumlah,0);
+const mi=sum(rows,"masuk"),ke=sum(rows,"keluar"),L={weekday:"long",day:"numeric",month:"long",year:"numeric"};
+$("#sper").textContent=per==="harian"?fd(day,L):fd(from,{day:"numeric",month:"long"})+" sampai "+fd(day,L);
+$("#sTot").replaceChildren(stat("Masuk",rp(mi),"in"),stat("Keluar",rp(ke),"out"),stat("Selisih",rp(mi-ke),mi-ke<0?"out":"in"),stat("Transaksi",String(rows.length)));
+const body=$("#sBody");body.replaceChildren();
+if(!rows.length){body.append(el("div",{class:"empty"},"Belum ada transaksi pada periode ini. Pilih tanggal lain atau catat transaksi baru."));return}
+const cat={};rows.filter(d=>d.jenis==="keluar").forEach(d=>cat[d.kategori]=(cat[d.kategori]||0)+d.jumlah);
+const ent=Object.entries(cat).sort((a,b)=>b[1]-a[1]);
+if(ent.length){body.append(el("h2",null,"Pengeluaran per kategori"));ent.forEach(([k,v])=>{const i=el("i");i.style.width=Math.max(2,v/ke*100)+"%";body.append(el("div",{class:"bar"},el("span",null,k),el("div",null,i),el("em",null,rp(v))))})}
+if(per==="mingguan"){body.append(el("h2",null,"Per hari"));const tb=el("tbody");
+for(let n=0;n<7;n++){const d=new Date(from+"T00:00:00");d.setDate(d.getDate()+n);const t=iso(d),r=rows.filter(x=>x.tanggal===t);
+tb.append(el("tr",null,el("td",null,fd(t,{weekday:"short",day:"numeric",month:"short"})),el("td",{class:"num in"},rp(sum(r,"masuk"))),el("td",{class:"num out"},rp(sum(r,"keluar")))))}
+body.append(el("div",{class:"sheet"},el("table",{style:"min-width:0"},el("thead",null,el("tr",null,el("th",null,"Tanggal"),el("th",{class:"num"},"Masuk"),el("th",{class:"num"},"Keluar"))),tb)))}}
+$("#sdate").value=today();$("#sdate").onchange=renderSum;
+["harian","mingguan"].forEach(p=>$("#p-"+p).onclick=()=>{per=p;["harian","mingguan"].forEach(x=>$("#p-"+x).setAttribute("aria-pressed",String(x===p)));renderSum()});
+show("catat");
+</script>
+</body>
+</html>
