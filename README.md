@@ -4,7 +4,7 @@
 ArthaBuku adalah web pencatat keuangan yang mengubah kalimat bebas berbahasa Indonesia, misalnya "tadi beli bensin 50rb sama kopi 18 ribu", menjadi transaksi terstruktur dengan bantuan AI. Pengguna memeriksa dan mengoreksi hasilnya sebelum disimpan ke buku kas, lalu melihat ringkasan harian atau mingguan.
 
 ## Problem & Target User
-[ISI PESERTA: masalah nyata yang ingin diselesaikan, siapa yang mengalaminya, dan bukti atau hasil wawancara singkat dengan calon pengguna. Tulis hanya data yang benar-benar Anda miliki.]
+Masalah yang sering kita jumpai tentang keuangan. Tanpa catatan utuh, mereka kesulitan mengetahui uangnya pergi kemana, kapan kas mulai menipis,dan berapa selisih uang masuk dan keluar dalam sehari atau seminggu. Hal ini dialami oleh pelaku usaha kecil. Hasil wawancara membuktikan, dengan adanya pencatatan, pelaku usaha dapat mengetahui kemana uangnya keluar, dipaki untuk apa, dan kapan uang itu dipakai.
 
 ## Key Features
 Semua fitur di bawah sudah berfungsi di URL deployment dan dapat dicoba tanpa login.
@@ -23,7 +23,7 @@ Semua fitur di bawah sudah berfungsi di URL deployment dan dapat dicoba tanpa lo
 
 ## AI Implementation
 - **Model/API:** Google Gemini API, dipanggil dari server. Nama model diatur lewat variabel `GEMINI_MODEL` (saat ini `gemini-3.8-flash`).
-- **Alasan memilih model:** [ISI PESERTA: alasan Anda memilih Gemini dan model ini, misalnya tier gratis, kemampuan bahasa Indonesia, kecepatan]
+- **Alasan memilih model:** karena dapat di akses secara gratis dengan tier gratis, kemampuan bahasa Indonesia, dan kecepatan.
 - **Fungsi dalam produk:** mengubah kalimat bebas menjadi array JSON transaksi. Tanpa AI, alur utama (mencatat dari kalimat bebas) tidak berjalan; yang tersisa hanya isian manual.
 - **Input -> Output:** input berupa teks pengguna (maksimal 1000 karakter) dan tanggal hari ini (zona waktu WITA). Output berupa array JSON dengan field `tanggal`, `keterangan`, `kategori`, `jenis` (masuk/keluar), dan `jumlah` (rupiah). Instruksi ke model meminta jawaban JSON saja, dan teks pengguna diperlakukan sebagai data, bukan perintah.
 - **Data yang dikirim ke penyedia model:** hanya kalimat yang diketik pengguna dan tanggal hari ini. Isi buku kas tidak dikirim. Pada tier gratis Gemini, Google dapat memakai permintaan untuk memperbaiki produknya, jadi jangan memasukkan data sensitif.
@@ -65,7 +65,7 @@ Tidak diperlukan. Web dapat dibuka dan dicoba tanpa login.
 - Google Fonts: Bricolage Grotesque dan Figtree (SIL Open Font License)
 
 ## Team Members
-- [ISI PESERTA: nama - peran]
+- Gama Brian Al Kamil
 
 ## AI & Technology Disclosure
 
@@ -80,9 +80,9 @@ Tidak diperlukan. Web dapat dibuka dan dicoba tanpa login.
 | Peran AI dalam Produk | Mengubah kalimat bebas menjadi transaksi terstruktur (fungsi utama) |
 | Dataset / Data Source | Tidak ada dataset; input berasal dari pengguna |
 | Open-source Libraries | Tidak ada library pihak ketiga; font dari Google Fonts |
-| Template / Boilerplate | [ISI PESERTA: sebutkan bila ada, atau tulis "tidak ada"] |
-| AI Coding Assistant | Claude (Anthropic) dipakai untuk membantu menulis dan merevisi kode frontend dan fungsi serverless serta menyusun dokumen. [ISI PESERTA: konfirmasi, dan tambahkan alat AI lain bila ada] |
-| Pre-existing Components | [ISI PESERTA: bagian yang sudah ada sebelum kompetisi, atau tulis "tidak ada"] |
+| Template / Boilerplate | Tidak ada
+| AI Coding Assistant | Claude (Anthropic) dipakai untuk membantu menulis dan merevisi kode frontend dan fungsi serverless serta menyusun dokumen. 
+| Pre-existing Components | 
 | Third-party Assets / Credits | Google Fonts (Bricolage Grotesque, Figtree) |
 
 Peserta menyatakan bahwa informasi di atas benar dan lengkap, serta bertanggung jawab atas penggunaan teknologi, source code, data, library, API, model AI, dan aset yang dipakai.
