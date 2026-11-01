@@ -2,6 +2,19 @@
 const TZ = "Asia/Makassar"; // WITA, zona waktu Bali
 
 module.exports = async (req, res) => {
+  if (req.method === "GET" && req.query && req.query.test === "1") {
+    const m = process.env.GEMINI_MODEL || "gemini-3.5-flash";
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY || "" },
+        body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Balas satu kata: OK" }] }] }),
+      });
+      return res.status(200).json({ model: m, keyAda: !!process.env.GEMINI_API_KEY, status: r.status, isi: (await r.text()).slice(0, 400) });
+    } catch (e) {
+      return res.status(200).json({ error: String(e) });
+    }
+  }
   if (req.method !== "POST") return res.status(405).json({ error: "method" });
   const teks = typeof (req.body && req.body.teks) === "string" ? req.body.teks.trim() : "";
   if (!teks || teks.length > 1000) return res.status(400).json({ error: "bad_input" });
