@@ -2,19 +2,6 @@
 const TZ = "Asia/Makassar"; // WITA, zona waktu Bali
 
 module.exports = async (req, res) => {
-  if (req.method === "GET" && req.query && req.query.test === "1") {
-    const m = process.env.GEMINI_MODEL || "gemini-3.5-flash";
-    try {
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
-        method: "POST",
-        headers: { "content-type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY || "" },
-        body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: "Balas satu kata: OK" }] }] }),
-      });
-      return res.status(200).json({ model: m, keyAda: !!process.env.GEMINI_API_KEY, status: r.status, isi: (await r.text()).slice(0, 400) });
-    } catch (e) {
-      return res.status(200).json({ error: String(e) });
-    }
-  }
   if (req.method !== "POST") return res.status(405).json({ error: "method" });
   const teks = typeof (req.body && req.body.teks) === "string" ? req.body.teks.trim() : "";
   if (!teks || teks.length > 1000) return res.status(400).json({ error: "bad_input" });
@@ -29,7 +16,7 @@ Balas HANYA array JSON tanpa teks lain. Tiap elemen: {"tanggal":"YYYY-MM-DD","ke
 Aturan: rb, ribu, k = x1.000; jt, juta = x1.000.000; "350.000" = 350000. Tanggal relatif (kemarin, tadi, Senin lalu) dihitung dari hari ini; tanpa tanggal = hari ini. Terima, gaji, jual, dapat = masuk; beli, bayar, isi = keluar. Buat satu elemen per barang jika harganya disebut terpisah. Lewati bagian tanpa nominal yang jelas. Jika tidak ada transaksi, balas [].
 <<<${teks}>>>`;
 
-  const model = process.env.GEMINI_MODEL || "gemini-3.5-flash";
+  const model = process.env.GEMINI_MODEL || "gemini-3.8-flash";
   try {
     const r = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
