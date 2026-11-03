@@ -22,7 +22,7 @@ Semua fitur di bawah sudah berfungsi di URL deployment dan dapat dicoba tanpa lo
 - Hosting: Vercel
 
 ## AI Implementation
-- **Model/API:** Google Gemini API, dipanggil dari server. Nama model diatur lewat variabel `GEMINI_MODEL` (saat ini `gemini-3.8-flash`).
+- **Model/API:** Google Gemini API, dipanggil dari server. Nama model diatur lewat variabel `GEMINI_MODEL` (saat ini `gemini-3.5-flash-lite`).
 - **Alasan memilih model:** karena dapat di akses secara gratis dengan tier gratis, kemampuan bahasa Indonesia, dan kecepatan.
 - **Fungsi dalam produk:** mengubah kalimat bebas menjadi array JSON transaksi. Tanpa AI, alur utama (mencatat dari kalimat bebas) tidak berjalan; yang tersisa hanya isian manual.
 - **Input -> Output:** input berupa teks pengguna (maksimal 1000 karakter) dan tanggal hari ini (zona waktu WITA). Output berupa array JSON dengan field `tanggal`, `keterangan`, `kategori`, `jenis` (masuk/keluar), dan `jumlah` (rupiah). Instruksi ke model meminta jawaban JSON saja, dan teks pengguna diperlakukan sebagai data, bukan perintah.
@@ -76,7 +76,7 @@ Tidak diperlukan. Web dapat dibuka dan dicoba tanpa login.
 | Backend / Runtime | Vercel Serverless Function, Node.js |
 | Database / Storage | `localStorage` browser (tanpa database server) |
 | Hosting / Deployment | Vercel |
-| AI Model / API / Method | Google Gemini API (`gemini-3.8-flash`, diatur lewat `GEMINI_MODEL`), dipanggil dari server |
+| AI Model / API / Method | Google Gemini API (`gemini-3.5-flash-lite`, diatur lewat `GEMINI_MODEL`), dipanggil dari server |
 | Peran AI dalam Produk | Mengubah kalimat bebas menjadi transaksi terstruktur (fungsi utama) |
 | Dataset / Data Source | Tidak ada dataset; input berasal dari pengguna |
 | Open-source Libraries | Tidak ada library pihak ketiga; font dari Google Fonts |
